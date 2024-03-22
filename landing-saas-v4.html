@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+  <meta charset="utf-8">
+  <title>Budplanner - Die kostenlose Canabis Club Software - Starte deinen Canabis Club digital und dokumentiert</title>
+
+  <!-- SEO Meta Tags -->
+  <meta name="description"
+    content="Budplanner ermoeglicht es euch euren Cannabis Club kostenlos bis Ende 2024 zu verwalten. Registiere Cannabis Club Mitglieder, manage deinen Cannabis Anbau oder dokementiere deine Ernte. Jetzt anmelden!">
+
+  <meta name="author" content="Surfgreen.dev">
+
+  <!-- Viewport -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Favicon and Touch Icons -->
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon/favicon-16x16.png">
+  <link rel="manifest" href="assets/favicon/site.webmanifest">
+  <link rel="mask-icon" href="assets/favicon/safari-pinned-tab.svg" color="#6366f1">
+  <link rel="shortcut icon" href="assets/favicon/favicon.ico">
+  <meta name="msapplication-TileColor" content="#080032">
+  <meta name="msapplication-config" content="assets/favicon/browserconfig.xml">
+  <meta name="theme-color" content="#ffffff">
+
+  <!-- Vendor Styles -->
+  <link rel="stylesheet" media="screen" href="assets/vendor/boxicons/css/boxicons.min.css" />
+  <link rel="stylesheet" media="screen" href="assets/vendor/swiper/swiper-bundle.min.css" />
+
+  <!-- Main Theme Styles + Bootstrap -->
+  <link rel="stylesheet" media="screen" href="assets/css/theme.min.css">
+
+  <!-- Page loading styles -->
+  <style>
+    .page-loading {
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      -webkit-transition: all .4s .2s ease-in-out;
+      transition: all .4s .2s ease-in-out;
+      background-color: #fff;
+      opacity: 0;
+      visibility: hidden;
+      z-index: 9999;
+    }
+
+    .dark-mode .page-loading {
+      background-color: #0b0f19;
+    }
+
+    .page-loading.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .page-loading-inner {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      width: 100%;
+      text-align: center;
+      -webkit-transform: translateY(-50%);
+      transform: translateY(-50%);
+      -webkit-transition: opacity .2s ease-in-out;
+      transition: opacity .2s ease-in-out;
+      opacity: 0;
+    }
+
+    .page-loading.active>.page-loading-inner {
+      opacity: 1;
+    }
+
+    .page-loading-inner>span {
+      display: block;
+      font-size: 1rem;
+      font-weight: normal;
+      color: #9397ad;
+    }
+
+    .dark-mode .page-loading-inner>span {
+      color: #fff;
+      opacity: .6;
+    }
+
+    .page-spinner {
+      display: inline-block;
+      width: 2.75rem;
+      height: 2.75rem;
+      margin-bottom: .75rem;
+      vertical-align: text-bottom;
+      border: .15em solid #b4b7c9;
+      border-right-color: transparent;
+      border-radius: 50%;
+      -webkit-animation: spinner .75s linear infinite;
+      animation: spinner .75s linear infinite;
+    }
+
+    .dark-mode .page-spinner {
+      border-color: rgba(255, 255, 255, .4);
+      border-right-color: transparent;
+    }
+
+    @-webkit-keyframes spinner {
+      100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes spinner {
+      100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+      }
+    }
+  </style>
+
+  <!-- Theme mode -->
+  <script>
+    let mode = window.localStorage.getItem('mode'),
+      root = document.getElementsByTagName('html')[0];
+    if (mode !== null && mode === 'dark') {
+      root.classList.add('dark-mode');
+    } else {
+      root.classList.remove('dark-mode');
+    }
+  </script>
+
+  <!-- Page loading scripts -->
+  <script>
+    (function () {
+      window.onload = function () {
+        const preloader = document.querySelector('.page-loading');
+        preloader.classList.remove('active');
+        setTimeout(function () {
+          preloader.remove();
+        }, 1000);
+      };
+    })();
+  </script>
+</head>
+
+
+<!-- Body -->
+
+<body>
+
+  <!-- Page loading spinner -->
+  <div class="page-loading active">
+    <div class="page-loading-inner">
+      <div class="page-spinner"></div><span>Loading...</span>
+    </div>
+  </div>
+
+
+  <!-- Page wrapper for sticky footer -->
+  <!-- Wraps everything except footer to push footer to the bottom of the page if there is little content -->
+  <main class="page-wrapper">
+
+
+    <!-- Navbar -->
+    <!-- Remove "navbar-sticky" class to make navigation bar scrollable with the page -->
+    <header class="header navbar navbar-expand-lg position-absolute navbar-sticky">
+      <div class="container px-3">
+        <a href="index.html" class="navbar-brand pe-3">
+          Budplanner.de
+        </a>
+        <div id="navbarNav" class="offcanvas offcanvas-end">
+          <div class="offcanvas-header border-bottom">
+            <h5 class="offcanvas-title">Menu</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+
+
+            </ul>
+          </div>
+          <div class="offcanvas-header border-top">
+            <a href="https://themes.getbootstrap.com/product/silicon-business-technology-template-ui-kit/"
+              class="btn btn-primary w-100" target="_blank" rel="noopener">
+
+              &nbsp;Jetzt registrieren
+            </a>
+          </div>
+        </div>
+        <div class="form-check form-switch mode-switch pe-lg-1 ms-auto me-4" data-bs-toggle="mode">
+          <input type="checkbox" class="form-check-input" id="theme-mode">
+          <label class="form-check-label d-none d-sm-block" for="theme-mode">Light</label>
+          <label class="form-check-label d-none d-sm-block" for="theme-mode">Dark</label>
+        </div>
+        <button type="button" class="navbar-toggler" data-bs-toggle="offcanvas" data-bs-target="#navbarNav"
+          aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <a href="https://themes.getbootstrap.com/product/silicon-business-technology-template-ui-kit/"
+          class="btn btn-primary btn-sm fs-sm rounded d-none d-lg-inline-flex" target="_blank" rel="noopener">
+
+          &nbsp;Jetzt registrieren
+        </a>
+      </div>
+    </header>
+
+
+    <!-- Hero section -->
+    <section class="position-relative pt-5 overflow-hidden">
+      <span class="position-absolute top-0 start-0 d-dark-mode-none d-block w-100 h-100 bg-secondary"></span>
+      <span class="position-absolute top-0 start-0 d-dark-mode-block d-none w-100 h-100"
+        style="background: radial-gradient(84.79% 172.9% at 73.31% 31.4%, rgba(99, 135, 241, .1) 0%, rgba(218, 70, 239, .05) 52.47%, rgba(99, 135, 241, .1) 100%);">
+        <span class="d-block w-100 h-100 bg-position-center bg-size-cover bg-repeat-0"
+          style="background-image: url(assets/img/landing/saas-4/hero-bg.png);"></span>
+      </span>
+      <div class="container position-relative mt-5 pt-xl-5 pt-md-3 zindex-5">
+        <div class="row justify-content-md-start justify-content-center flex-md-nowrap pt-lg-5 pt-4">
+          <div
+            class="col-xl-5 col-md-6 col-sm-10 d-flex flex-column justify-content-between mb-md-5 mb-md-4 mb-3 pb-xl-5 pb-lg-4">
+            <div class="text-md-start text-center">
+              <h1 class="display-4 mb-lg-4 mb-3">Budplanner - Verwalte deinen Cannabis Club. </h1>
+              <p class="mb-4 mx-md-0 mx-auto pb-xl-3 pb-lg-2 fs-lg" style="max-width: 30.5rem;">
+                Budplanner startet Mitte April 2024. Registriere dich jetzt und erhalte kostenlosen Zugang bis Ende
+                2024.
+              </p>
+              <a href="#" class="btn btn-lg btn-primary">Jetzt Registrieren</a>
+            </div>
+            <ul
+              class="list-unstyled row row-cols-2 gy-sm-2 gy-1 gx-sm-4 gx-2 mt-lg-5 mt-4 mx-md-0 mx-auto pt-lg-0 pt-md-2 mb-md-5 mb-4 pb-xl-4 pb-lg-3 pb-md-2 pb-sm-0 pb-2 text-nowrap"
+              style="max-width: 23.625rem;">
+              <li class="col d-flex align-items-start">
+                <i class="bx bx-check-circle me-2 fs-5 text-primary"></i>
+                Hoher Datenschutz und Sicherheit
+              </li>
+              <li class="col d-flex align-items-start">
+                <i class="bx bx-check-circle me-2 fs-5 text-primary"></i>
+                Verwaltung von Cannabis Club Mitgliedern
+              </li>
+              <li class="col d-flex align-items-start">
+                <i class="bx bx-check-circle me-2 fs-5 text-primary"></i>
+                Cannabis Anbau planen
+              </li>
+              <li class="col d-flex align-items-start">
+                <i class="bx bx-check-circle me-2 fs-5 text-primary"></i>
+                Cannabis Ernte dokumentieren
+              </li>
+            </ul>
+          </div>
+          <div class="col-md-12 offset-xl-1 d-flex mt-lg-4 mb-4">
+            <div class="align-self-end ms-xl-0 ms-md-4 p-lg-4 p-sm-3 p-2 rounded-4 overflow-hidden"
+              style="background: linear-gradient(153.32deg, rgba(255, 255, 255, .3) -65.62%, rgba(255, 255, 255, .1) 83.28%); box-shadow: 0 .25rem 1.5rem -.0625rem rgba(0, 0, 0, .2); backdrop-filter: blur(25px);">
+              <img src="assets/img/landing/saas-4/hero-img.jpg" width="1122" alt="Layer" class="rounded-4"
+                style="box-shadow: 0 0 7.5rem rgba(0, 0, 0, .1);">
+            </div>
+          </div>
+        </div>
+      </div>
+      <span class="position-absolute bottom-0 start-0 w-100">
+        <span class="d-dark-mode-none d-block w-100 h-100 py-xl-5 pt-lg-4 pt-md-0 pt-4 pb-5 bg-light"></span>
+        <span class="d-dark-mode-block d-none w-100 h-100 py-xl-5 pt-lg-4 pt-md-0 pt-4 pb-5 bg-dark"></span>
+      </span>
+    </section>
+
+
+    <!-- About -->
+    <section class="container my-5 pt-xl-5 pt-lg-4 pt-md-3 pb-lg-5 pb-md-4 pb-3">
+      <h2 class="h1 mt-xl-3 mb-4 pb-3 text-center">So planst und verwaltest du Deinen Cannabis Club</h2>
+
+      <!-- Nav tabs -->
+      <ul class="nav nav-tabs flex-nowrap justify-content-sm-center overflow-auto mb-lg-4 mb-3 pb-md-3 pb-2 text-nowrap"
+        role="tablist">
+        <li class="nav-item">
+          <a href="#economic-analysis" class="nav-link active" data-bs-toggle="tab" role="tab">
+            <i class="bx bx-male-female opacity-60 me-2 fs-lg"></i>
+            Cannabis Club Mitglieder
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="#investments" class="nav-link" data-bs-toggle="tab" role="tab">
+            <i class="bx bx-leaf-alt-2 opacity-60 me-2 fs-lg"></i>
+            Cannabis Beschaffung und Anbau
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="#corporate-finance" class="nav-link" data-bs-toggle="tab" role="tab">
+            <i class="bx bx-bar-chart-alt-2 opacity-60 me-2 fs-lg"></i>
+            Dokumentation von Cannabis Ernte und Verteilung
+          </a>
+        </li>
+      </ul>
+
+      <!-- Tabs content -->
+      <div class="tab-content mb-xl-3 py-4 bg-secondary rounded-3">
+
+        <!-- Economic Analysis -->
+        <div class="tab-pane fade show active" id="economic-analysis" role="tabpanel">
+          <div class="row align-items-center pt-3 pt-sm-4 pt-md-0 px-3 px-sm-4 px-lg-0">
+            <div class="col-lg-4 col-md-5 offset-lg-1 text-center text-md-start">
+              <h3 class="h2 mb-lg-4 mb-3">Registriere Deine Club Mitglieder</h3>
+              <p class="mb-4 pb-lg-3">BudPlanner.de versteht die Bedeutung eines reibungslosen Onboarding-Prozesses für
+                neue Mitglieder. Die Plattform ermöglicht es Cannabis-Clubs, ihre Mitgliederdatenbank effektiv zu
+                verwalten, indem sie eine einfache, schnelle und sichere Methode zur Registrierung neuer Mitglieder
+                bietet. Durch die Automatisierung des Registrierungsprozesses können Clubs Zeit sparen und gleichzeitig
+                die Genauigkeit der Mitgliederdaten gewährleisten.</p>
+              <p class="mb-4 pb-lg-3">In einer Zeit, in der Datenschutz und Sicherheit von größter Bedeutung sind, setzt
+                BudPlanner.de branchenführende Sicherheitsmaßnahmen ein, um die persönlichen Informationen der
+                Mitglieder zu schützen. Die Plattform gewährleistet, dass alle Daten gemäß den deutschen
+                Datenschutzgesetzen behandelt und gespeichert werden, und bietet Clubs somit die Sicherheit, dass sie
+                mit ihren Mitgliederdaten stets konform gehen.</p>
+
+              <a href="#" class="btn btn-primary">Learn more</a>
+            </div>
+            <div class="col-lg-6 col-md-7 mt-4 pt-md-0 pt-2">
+              <img src="assets/img/landing/saas-4/about/01.png" class="d-block my-lg-2 mx-auto me-md-0" width="595"
+                alt="Image">
+            </div>
+          </div>
+        </div>
+
+        <!-- Investments -->
+        <div class="tab-pane fade" id="investments" role="tabpanel">
+          <div class="row align-items-center pt-3 pt-sm-4 pt-md-0 px-3 px-sm-4 px-lg-0">
+            <div class="col-lg-5 col-md-6 offset-lg-1 text-center text-md-start">
+              <h3 class="h2 mb-lg-4 mb-3">Manage Deinen Cannabis Anbau</h3>
+              <div class="d-sm-flex mb-4 pb-lg-3 text-sm-start">
+                <p class="mb-4 pb-lg-3">BudPlanner.de ist revolutionär für Cannabis-Clubs in Deutschland, die eine
+                  umfassende Lösung für die Optimierung ihrer Anbauprozesse suchen. Die Plattform unterstützt nicht nur
+                  die Beschaffung von hochwertigen Cannabis-Samen und essentiellem Anbauzubehör, sondern bietet auch
+                  fortschrittliche Funktionen zur Überwachung und Dokumentation des gesamten Anbau- und
+                  Wachstumsprozesses der Pflanzen. Durch die Kombination aus Benutzerfreundlichkeit, detaillierter
+                  Überwachung und effektiver Datenverwaltung setzt BudPlanner.de neue Standards in der Verwaltung von
+                  Cannabis-Clubs.</p>
+
+              </div>
+              <a href="#" class="btn btn-primary">Learn more</a>
+            </div>
+            <div class="col-lg-5 col-md-6 mt-4 pt-md-0 pt-2">
+              <img src="assets/img/landing/saas-4/about/02.png" class="d-block my-lg-2 mx-auto me-md-0 rounded-3"
+                width="595" alt="Image">
+            </div>
+          </div>
+        </div>
+
+        <!-- Corporate Finance -->
+        <div class="tab-pane fade" id="corporate-finance" role="tabpanel">
+          <div class="row align-items-center pt-3 pt-sm-4 pt-md-0 px-3 px-sm-4 px-lg-0">
+            <div class="col-lg-4 col-md-5 offset-lg-1 text-center text-md-start">
+              <h3 class="h2 mb-lg-4 mb-3">Cannabis Ernte und Verteilung an Clubmitglieder</h3>
+              <p class="mb-4 pb-lg-3">Durch BudPlanner.de wird der Ernteprozess erheblich vereinfacht. Die Plattform
+                ermöglicht es den Clubs, detaillierte Aufzeichnungen über jede Ernte zu führen, einschließlich der
+                Erntemenge, des Erntedatums und spezifischer Stamminformationen. Diese Daten helfen nicht nur bei der
+                Planung zukünftiger Anbauprojekte, sondern auch bei der Einhaltung gesetzlicher Vorgaben. Mit
+                BudPlanner.de können Clubs sicherstellen, dass alle erforderlichen Informationen präzise erfasst und
+                leicht zugänglich sind.</p>
+
+              <p class="mb-4 pb-lg-3">Ein wesentlicher Vorteil von BudPlanner.de liegt in der Unterstützung der Clubs
+                bei der Einhaltung der rechtlichen Rahmenbedingungen. Durch die detaillierte Dokumentation des Ernte-
+                und Ausgabeprozesses können Clubs den gesetzlichen Anforderungen gerecht werden und Audits problemlos
+                bestehen. BudPlanner.de stellt sicher, dass alle Aktivitäten innerhalb des Clubs ordnungsgemäß
+                aufgezeichnet und berichtet werden können, was den Betrieb in Einklang mit den regulatorischen
+                Vorschriften hält.</p>
+            </div>
+            <div class="col-lg-6 col-md-7 mt-4 pt-md-0 pt-2">
+              <img src="assets/img/landing/saas-4/about/03.png" class="d-block my-lg-2 mx-auto me-md-0 rounded-3"
+                width="595" alt="Image">
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- Industries (Slider) -->
+    <section class="container mb-5 pb-lg-5 pb-md-4 pb-3">
+      <div class="row gy-4 mb-xl-3">
+        <div class="col-12 d-flex flex-column order-2 order-lg-1">
+          <h2 class="h1 mb-md-4 mb-3 py-lg-3 text-lg-start text-center">FAQs zu Cannabis Clubs</h2>
+
+
+          <div class="accordion" id="cannabisClubFAQs">
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="headingOne">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
+                  aria-expanded="true" aria-controls="collapseOne">
+                  Was ist ein Cannabis Club?
+                </button>
+              </h2>
+              <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+                data-bs-parent="#cannabisClubFAQs">
+                <div class="accordion-body">
+                  Ein Cannabis Club ist eine nicht-kommerzielle Organisation, die den Anbau und die Verteilung von
+                  Cannabis in einem regulierten Rahmen für ihre Mitglieder ermöglicht. Diese Clubs zielen darauf ab,
+                  eine sichere und kontrollierte Umgebung für den Konsum und Austausch von Cannabis zu bieten, wobei der
+                  Schwerpunkt auf Verantwortung und Gemeinschaft liegt.
+                </div>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="headingTwo">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                  Wie werde ich Mitglied in einem Cannabis Club?
+                </button>
+              </h2>
+              <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+                data-bs-parent="#cannabisClubFAQs">
+                <div class="accordion-body">
+                  Um Mitglied in einem Cannabis Club zu werden, müssen Sie in der Regel volljährig sein und einen
+                  Wohnsitz im Land des Clubs nachweisen können. Die meisten Clubs verlangen auch eine Empfehlung von
+                  einem bestehenden Mitglied und eine kleine Beitrittsgebühr. Die genauen Bedingungen können von Club zu
+                  Club variieren.
+                </div>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="headingThree">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                  Ist der Konsum von Cannabis in Clubs legal?
+                </button>
+              </h2>
+              <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
+                data-bs-parent="#cannabisClubFAQs">
+                <div class="accordion-body">
+                  Die Legalität des Cannabis-Konsums in Clubs hängt von den lokalen Gesetzen des jeweiligen Landes oder
+                  der Region ab. In einigen Ländern oder Regionen ist der Betrieb von Cannabis Clubs innerhalb eines
+                  rechtlichen Rahmens erlaubt, während in anderen der Konsum von Cannabis in der Öffentlichkeit oder in
+                  Clubs verboten ist.
+                </div>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="headingFour">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                  Wie finanziert sich ein Cannabis Club?
+                </button>
+              </h2>
+              <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour"
+                data-bs-parent="#cannabisClubFAQs">
+                <div class="accordion-body">
+                  Cannabis Clubs finanzieren sich in der Regel durch Mitgliedsbeiträge, Spenden und manchmal durch den
+                  Verkauf von Zubehör. Die Einnahmen werden verwendet, um die Betriebskosten zu decken, einschließlich
+                  der Kosten für den Anbau von Cannabis, Miete und Instandhaltung der Räumlichkeiten sowie für
+                  Veranstaltungen und Bildungsprogramme für Mitglieder.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </section>
+    <script>
+      {
+        "@context": "https://schema.org",
+          "@type": "FAQPage",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "Was ist ein Cannabis Club?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Ein Cannabis Club ist eine nicht-kommerzielle Organisation, die den Anbau und die Verteilung von Cannabis in einem regulierten Rahmen für ihre Mitglieder ermöglicht. Diese Clubs zielen darauf ab, eine sichere und kontrollierte Umgebung für den Konsum und Austausch von Cannabis zu bieten, wobei der Schwerpunkt auf Verantwortung und Gemeinschaft liegt."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Wie werde ich Mitglied in einem Cannabis Club?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Um Mitglied in einem Cannabis Club zu werden, müssen Sie in der Regel volljährig sein und einen Wohnsitz im Land des Clubs nachweisen können. Die meisten Clubs verlangen auch eine Empfehlung von einem bestehenden Mitglied und eine kleine Beitrittsgebühr. Die genauen Bedingungen können von Club zu Club variieren."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Ist der Konsum von Cannabis in Clubs legal?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Die Legalität des Cannabis-Konsums in Clubs hängt von den lokalen Gesetzen des jeweiligen Landes oder der Region ab. In einigen Ländern oder Regionen ist der Betrieb von Cannabis Clubs innerhalb eines rechtlichen Rahmens erlaubt, während in anderen der Konsum von Cannabis in der Öffentlichkeit oder in Clubs verboten ist."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Wie finanziert sich ein Cannabis Club?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Cannabis Clubs finanzieren sich in der Regel durch Mitgliedsbeiträge, Spenden und manchmal durch den Verkauf von Zubehör. Die Einnahmen werden verwendet, um die Betriebskosten zu decken, einschließlich der Kosten für den Anbau von Cannabis, Miete und Instandhaltung der Räumlichkeiten sowie für Veranstaltungen und Bildungsprogramme für Mitglieder."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Was unterscheidet einen Cannabis Club von einem Coffeeshop?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Der Hauptunterschied zwischen einem Cannabis Club und einem Coffeeshop liegt in der Betriebsstruktur und dem rechtlichen Rahmen. Cannabis Clubs sind in der Regel private, nicht-kommerzielle Vereinigungen, die Cannabis ausschließlich für ihre Mitglieder anbauen und verteilen. Coffeeshops sind kommerzielle Einrichtungen, die in einigen Ländern den Verkauf von Cannabis an die Öffentlichkeit unter bestimmten Bedingungen erlauben."
+                }
+              }
+            ]
+      }
+    </script>
+
+
+    <!-- Integration -->
+    <section class=" container mb-5 pb-lg-5 pb-md-4 pb-3">
+      <h2 class="h1 mb-lg-4 mb-3 text-center">Budplanner startet im April</h2>
+      <p class="mb-lg-5 mb-4 pb-lg-0 pb-md-2 mx-auto text-center" style="max-width: 40.75rem;">
+        Wir starten im April 2024. Registriere dich jetzt und erhalte kostenlosen Zugang bis Ende 2024.
+      </p>
+
+      <!-- Swiper slider -->
+
+    </section>
+
+
+    <!-- Feature section (App) -->
+
+
+
+    <!-- Blog -->
+
+
+    <!-- Price -->
+
+
+  </main>
+
+
+  <!-- Footer -->
+  <footer class="footer dark-mode bg-dark py-5">
+    <div class="container pt-2 pt-sm-4">
+      <div class="row">
+        <div class="col-md-6 col-lg-5 col-xl-4 pb-2 pb-sm-3 pb-md-0 mb-4 mb-md-0">
+          <div class="navbar-brand text-dark p-0 me-0 mb-3 mb-lg-4">
+            Budplanner.de
+          </div>
+          <p class="mb-0">
+          <div class="footer-seo-text">
+            <p>© 2024 BudPlanner.de - Dein vertrauensvoller Partner in der Welt der Cannabis Clubs. Wir bieten
+              eine umfassende Lösung für die Verwaltung, Dokumentation und Optimierung des Anbaus und der Ausgabe von
+              Cannabis. Unser Ziel ist es, durch fortschrittliche Technologien und zuverlässigen Support, Cannabis Clubs
+              in ganz Deutschland zu stärken. Entdecke die Vorteile von BudPlanner.de und trete einer Gemeinschaft bei,
+              die für Qualität, Sicherheit und Transparenz steht.</p>
+            < </div>
+              </p>
+          </div>
+          <div class="col-md-6 col-xxl-5 offset-lg-1 offset-xl-2 offset-xxl-3">
+            <div class="row row-cols-1 row-cols-sm-2">
+              <div class="col pb-2 pb-sm-0 mb-4 mb-sm-0">
+                <h3 class="h5 pb-1 pb-sm-2 pb-lg-3">Kontaktiere uns</h3>
+                <ul class="nav flex-column mb-3">
+                  <li>
+                    <a href="tel:+49 9721 5393504" class="nav-link fs-lg fw-normal px-0 py-1">
+                      <i class="bx bx-phone-call fs-4 me-2"></i>
+                      +49 9721 5393504
+                    </a>
+                  </li>
+                  <li>
+                    <a href="mailto:info@budplanner.de" class="nav-link fs-lg fw-normal px-0 py-1">
+                      <i class="bx bx-envelope fs-4 me-2"></i>
+                      info@budplanner.de
+                    </a>
+                  </li>
+                  <li>
+                    <a href="/impressum.html" class="nav-link fs-lg fw-normal px-0 py-1">
+                      Impressum
+                    </a>
+                    <a href="/datenschutz.html" class="nav-link fs-lg fw-normal px-0 py-1">
+                      Datenschutz
+                    </a>
+                  </li>
+                </ul>
+                <!--
+                <div class="d-flex pt-2 pt-sm-3 pt-md-4">
+                  <a href="#" class="btn btn-icon btn-sm btn-secondary btn-facebook rounded-circle me-3">
+                    <i class="bx bxl-facebook"></i>
+                  </a>
+                  <a href="#" class="btn btn-icon btn-sm btn-secondary btn-linkedin rounded-circle me-3">
+                    <i class="bx bxl-linkedin"></i>
+                  </a>
+                  <a href="#" class="btn btn-icon btn-sm btn-secondary btn-telegram rounded-circle me-3">
+                    <i class="bx bxl-telegram"></i>
+                  </a>
+                  <a href="#" class="btn btn-icon btn-sm btn-secondary btn-youtube rounded-circle me-3">
+                    <i class="bx bxl-youtube"></i>
+                  </a>
+                </div>
+                -->
+              </div>
+
+            </div>
+          </div>
+        </div>
+        <p class="nav d-block fs-sm pt-5 mb-0">
+          <span class="text-light opacity-60">&copy; Made by </span>
+          <a class="nav-link d-inline-block p-0" href="https://www.surfgreen.dev/" target="_blank"
+            rel="noopener">Surfgreen.dev - Python Django Development</a>
+        </p>
+      </div>
+  </footer>
+
+
+  <!-- Back to top button -->
+  <a href="#top" class="btn-scroll-top" data-scroll>
+    <span class="btn-scroll-top-tooltip text-muted fs-sm me-2">Top</span>
+    <i class="btn-scroll-top-icon bx bx-chevron-up"></i>
+  </a>
+
+
+  <!-- Vendor Scripts -->
+  <script src="assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/smooth-scroll/dist/smooth-scroll.polyfills.min.js"></script>
+  <script src="assets/vendor/parallax-js/dist/parallax.min.js"></script>
+  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+
+  <!-- Main Theme Script -->
+  <script src="assets/js/theme.min.js"></script>
+</body>
+
+</html>
